@@ -9,7 +9,7 @@ module NOAA
     end
 
     def get_forecast(num_days, lat, lng)
-      LibXML::XML::Document.string(@HTTP.get(URI.parse("http://www.weather.gov/forecasts/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?lat=#{lat}&lon=#{lng}&format=24+hourly&numDays=#{num_days}")))
+      LibXML::XML::Document.string(@HTTP.get(URI.parse("http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?lat=#{lat}&lon=#{lng}&format=24+hourly&numDays=#{num_days}")))
     end
 
     def get_station_list
