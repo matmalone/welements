@@ -1,136 +1,136 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 class TestCurrentConditions < NOAA::TestCase
-  XML_DOC = File.open(File.join(File.dirname(__FILE__), 'data', 'KVAY.xml')) { |f| Nokogiri::XML(f) }
+  XML_DOC = LibXML::XML::Document.file(File.join(File.dirname(__FILE__), 'data', 'KVAY.xml'))
 
-  test 'should return observation time' do
-    conditions.observed_at.should == Time.parse('2008-12-23 10:54:00 -0500')
+  def test_should_return_observation_time
+    assert_equal conditions.observed_at, Time.parse('2008-12-23 10:54:00 -0500')
   end
 
-  test 'should return weather description' do
-    conditions.weather_description.should == 'Fair'
+  def test_should_return_weather_description
+    assert_equal conditions.weather_description, 'Fair'
   end
 
-  test 'should return weather description from #weather_summary' do
-    conditions.weather_summary.should == 'Fair'
+  def test_should_return_weather_description_from_weather_summary
+    assert_equal conditions.weather_summary, 'Fair'
   end
 
-  test 'should return weather type code' do
-    conditions.weather_type_code.should == :skc
+  def test_should_return_weather_type_code
+    assert_equal conditions.weather_type_code, :skc
   end
 
-  test 'should return image URL' do
-    conditions.image_url.should == 'http://weather.gov/weather/images/fcicons/skc.jpg'
+  def test_should_return_image_URL
+    assert_equal conditions.image_url, 'http://weather.gov/weather/images/fcicons/skc.jpg'
   end
 
-  test 'should return temperature in fahrenheit by default' do
-    conditions.temperature.should == 24
+  def test_should_return_temperature_in_fahrenheit_by_default
+    assert_equal conditions.temperature, 24
   end
 
-  test 'should return temperature in fahrenheit when specified' do
-    conditions.temperature(:f).should == 24
+  def test_should_return_temperature_in_fahrenheit_when_specified
+    assert_equal conditions.temperature(:f), 24
   end
 
-  test 'should return temperature in celsius when specified' do
-    conditions.temperature(:c).should == -4
+  def test_should_return_temperature_in_celsius_when_specified
+    assert_equal conditions.temperature(:c), -4
   end
 
-  test 'should raise ArgumentError if unknown unit specified for temperature' do
-    lambda { conditions.temperature(:kelvin) }.should raise_error(ArgumentError)
+  def test_should_raise_ArgumentError_if_unknown_unit_specified_for_temperature
+    assert_raise(ArgumentError){ conditions.temperature(:kelvin) }
   end
 
-  test 'should return relative humidity' do
-    conditions.relative_humidity.should == 52
+  def test_should_return_relative_humidity
+    assert_equal conditions.relative_humidity, 52
   end
 
-  test 'should return wind direction' do
-    conditions.wind_direction.should == 'Northwest'
+  def test_should_return_wind_direction
+    assert_equal conditions.wind_direction, 'Northwest'
   end
 
-  test 'should return wind degrees' do
-    conditions.wind_degrees.should == 330
+  def test_should_return_wind_degrees
+    assert_equal conditions.wind_degrees, 330
   end
 
-  test 'should return wind speed in MPH' do
-    conditions.wind_speed.should == 3.45
+  def test_should_return_wind_speed_in_MPH
+    assert_equal conditions.wind_speed, 3.45
   end
 
-  test 'should return wind gust in MPH' do
-    conditions.wind_gust.should == 10.25
+  def test_should_return_wind_gust_in_MPH
+    assert_equal conditions.wind_gust, 10.25
   end
 
   #TODO wind gust can be NA
   
-  test 'should return pressure in inches by default' do
-    conditions.pressure.should == 30.7
+  def test_should_return_pressure_in_inches_by_default
+    assert_equal conditions.pressure, 30.7
   end
 
-  test 'should return pressure in inches when specified' do
-    conditions.pressure(:in).should == 30.7
+  def test_should_return_pressure_in_inches_when_specified
+    assert_equal conditions.pressure(:in), 30.7
   end
 
-  test 'should return pressure in millibars when specified' do
-    conditions.pressure(:mb).should == 1039.5
+  def test_should_return_pressure_in_millibars_when_specified
+    assert_equal conditions.pressure(:mb), 1039.5
   end
 
-  test 'should throw ArgumentError when unrecognized pressure specified for pressure' do
-    lambda { conditions.pressure(:psi) }.should raise_error(ArgumentError)
+  def test_should_throw_ArgumentError_when_unrecognized_pressure_specified_for_pressure
+    assert_raise(ArgumentError){ conditions.pressure(:psi) }
   end
 
-  test 'should return dew point in fahrenheit by default' do
-    conditions.dew_point.should == 9
+  def test_should_return_dew_point_in_fahrenheit_by_default
+    assert_equal conditions.dew_point, 9
   end
 
-  test 'should return dew point in fahrenheit when specified' do
-    conditions.dew_point(:f).should == 9
+  def test_should_return_dew_point_in_fahrenheit_when_specified
+    assert_equal conditions.dew_point(:f), 9
   end
 
-  test 'should return dew point in celsius when specified' do
-    conditions.dew_point(:c).should == -13
+  def test_should_return_dew_point_in_celsius_when_specified
+    assert_equal conditions.dew_point(:c), -13
   end
 
-  test 'should throw ArgumentError when unrecognized unit specified for dew point' do
-    lambda { conditions.dew_point(:kelvin) }.should raise_error(ArgumentError)
+  def test_should_throw_ArgumentError_when_unrecognized_unit_specified_for_dew_point
+    assert_raise(ArgumentError){ conditions.dew_point(:kelvin) }
   end
 
   #TODO heat index can be NA
 
-  test 'should return heat index in fahrenheit by default' do
-    conditions.heat_index.should == 105
+  def test_should_return_heat_index_in_fahrenheit_by_default
+    assert_equal conditions.heat_index, 105
   end
 
-  test 'should return heat index in fahrenheit when specified' do
-    conditions.heat_index(:f).should == 105
+  def test_should_return_heat_index_in_fahrenheit_when_specified
+    assert_equal conditions.heat_index(:f), 105
   end
 
-  test 'should return heat index in celsius when specified' do
-    conditions.heat_index(:c).should == 41
+  def test_should_return_heat_index_in_celsius_when_specified
+    assert_equal conditions.heat_index(:c), 41
   end
 
-  test 'should throw ArgumentError when unrecognized unit specified for heat index' do
-    lambda { conditions.heat_index(:kelvin) }.should raise_error(ArgumentError)
+  def test_should_throw_ArgumentError_when_unrecognized_unit_specified_for_heat_index
+    assert_raise(ArgumentError){ conditions.heat_index(:kelvin) }
   end
 
   #TODO wind chill can be NA
 
-  test 'should return wind chill in fahrenheit by default' do
-    conditions.wind_chill.should == 19
+  def test_should_return_wind_chill_in_fahrenheit_by_default
+    assert_equal conditions.wind_chill, 19
   end
 
-  test 'should return wind chill in fahrenheit when specified' do
-    conditions.wind_chill(:f).should == 19
+  def test_should_return_wind_chill_in_fahrenheit_when_specified
+    assert_equal conditions.wind_chill(:f), 19
   end
 
-  test 'should return wind chill in celsius when specified' do
-    conditions.wind_chill(:c).should == -7
+  def test_should_return_wind_chill_in_celsius_when_specified
+    assert_equal conditions.wind_chill(:c), -7
   end
 
-  test 'should throw ArgumentError when unrecognized unit specified for wind chill' do
-    lambda { conditions.wind_chill(:kelvin) }.should raise_error(ArgumentError)
+  def test_hould_throw_ArgumentError_when_unrecognized_unit_specified_for_wind_c
+    assert_raise(ArgumentError){ conditions.wind_chill(:kelvin) }
   end
 
-  test 'should return visibility in miles' do
-    conditions.visibility.should == 10.0
+  def test_should_return_visibility_in_miles
+    assert_equal conditions.visibility, 10.0
   end
 
   private
