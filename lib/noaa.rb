@@ -19,7 +19,7 @@ end
 module NOAA
   autoload :VERSION, File.join(File.dirname(__FILE__), 'noaa', 'version')
 
-  class <<self
+  class << self
     # 
     # Retrieve the current weather conditions for a given latitude and longitude. Returns an
     # instance of NOAA::CurrentConditions.

@@ -8,7 +8,7 @@ module NOAA
   #   
   class Forecast
 
-    class <<self
+    class << self
       private :new
 
       def from_xml(doc) #:nodoc:
