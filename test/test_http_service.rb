@@ -15,6 +15,11 @@ class TestHttpService < NOAA::TestCase
     assert_equal HTTP.requests, [URI.parse('http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?lat=40.72&lon=-73.99&format=24+hourly&numDays=4')]
   end
 
+  def test_should_get_parseable_results_for_forecast
+    doc = NOAA::HttpService.new.get_forecast(4, 40.72, -73.99)
+    assert doc.find(%q{/dwml/data/parameters[1]/temperature[1]/value}).map.count == 4
+  end
+
   def test_should_return_XML_document_for_forecast
     assert_equal http_service.get_forecast(4, 40.72, -73.99).to_s, %Q{<?xml version="1.0" encoding="UTF-8"?>\n<test/>\n}
   end
@@ -35,7 +40,7 @@ class TestHttpService < NOAA::TestCase
   end
 
   module HTTP
-    class <<self
+    class << self
       def reset
         requests.clear
       end
