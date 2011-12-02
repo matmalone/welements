@@ -60,7 +60,6 @@ module NOAA
     def starts
       starts = nil
       @doc.find(%q{/dwml/data/time-layout/start-valid-time/text()}).map do |node|
-
         t = Time.parse(node.to_s)
         starts = t if !starts || t < starts
       end
@@ -70,7 +69,6 @@ module NOAA
     def ends
       ends = nil
       @doc.find(%q{/dwml/data/time-layout/end-valid-time/text()}).map do |node|
-
         t = Time.parse(node.to_s)
         ends = t if !ends || t > ends
       end
