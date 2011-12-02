@@ -58,15 +58,23 @@ module NOAA
     end
 
     def starts
-      @starts ||= @doc.find(%q{/dwml/data/time-layout[@summarization='24hourly'][1]/start-valid-time/text()}).map do |node|
-        Time.parse(node.to_s)
+      starts = nil
+      @doc.find(%q{/dwml/data/time-layout/start-valid-time/text()}).map do |node|
+
+        t = Time.parse(node.to_s)
+        starts = t if !starts || t < starts
       end
+      @starts = starts
     end
 
     def ends
-      @ends ||= @doc.find(%q{/dwml/data/time-layout[@summarization='24hourly'][1]/end-valid-time/text()}).map do |node|
-        Time.parse(node.to_s)
+      ends = nil
+      @doc.find(%q{/dwml/data/time-layout/end-valid-time/text()}).map do |node|
+
+        t = Time.parse(node.to_s)
+        ends = t if !ends || t > ends
       end
+      @ends = ends
     end
 
     def maxima_info
