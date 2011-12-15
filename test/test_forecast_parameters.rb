@@ -15,6 +15,8 @@ class TestForecastParameters < NOAA::TestCase
     assert_equal({:value => 6, :time => Time.parse('2011-11-30T16:00:00-08:00')}, pops[0])
     assert_equal({:value => 0, :time => Time.parse('2011-12-01T04:00:00-08:00')}, pops[1])
     assert_equal({:value => 1, :time => Time.parse('2011-12-01T16:00:00-08:00')}, pops[2])
+    assert_equal({:value => 0, :time => Time.parse('2011-12-07T04:00:00-08:00')}, pops[13])
+    assert_equal 14, pops.length, "14 pop metrics"
   end
 
   def xml

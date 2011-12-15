@@ -92,17 +92,21 @@ module NOAA
     end
 
     def probability_of_precipitation
-      pops = @doc.find(%q{/dwml/data/parameters[1]/probability-of-precipitation[1]/value/text()}).map do |node|
+      build 'probability-of-precipitation'
+    end
+
+    def build(product)
+      values = @doc.find("/dwml/data/parameters[1]/#{product}[1]/value/text()").map do |node|
         #puts "node: #{node}"
         node.to_s.to_i
       end
-      #puts pops
+      #puts values
 
-      layout_key = @doc.find(%q{/dwml/data/parameters[1]/probability-of-precipitation[1]}).first[:'time-layout']
+      layout_key = @doc.find("/dwml/data/parameters[1]/#{product}[1]").first[:'time-layout']
       #puts "needle: #{layout_key}"
 
       layout = nil
-      @doc.find(%q{/dwml/data/time-layout}).each do |node|
+      @doc.find("/dwml/data/time-layout").each do |node|
         node.each_element do |el|
           if el.name == 'layout-key' && el.first.to_s == layout_key
             #puts "#{el.name}: #{el.first}"
@@ -116,11 +120,9 @@ module NOAA
       layout.each do |el|
         if el.name == 'start-valid-time'
           metrics.push({:time => Time.parse(el.first.to_s),
-                         :value => pops[metrics.length]})
+                         :value => values[metrics.length]})
         end
       end
-
-      #metrics.each { |metric| puts "time: #{metric[:time]} -- value: #{metric[:value]}" }
 
       metrics
     end
