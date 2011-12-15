@@ -57,6 +57,7 @@ module NOAA
       end
     end
 
+    # datetime of the first reading in the forecast
     def starts
       starts = nil
       @doc.find(%q{/dwml/data/time-layout/start-valid-time/text()}).map do |node|
@@ -66,6 +67,7 @@ module NOAA
       @starts = starts
     end
 
+    # datetime of the last reading in the forecast
     def ends
       ends = nil
       @doc.find(%q{/dwml/data/time-layout/end-valid-time/text()}).map do |node|
@@ -75,46 +77,52 @@ module NOAA
       @ends = ends
     end
 
-    def maxima_info
-      @doc.find(%q{/dwml/data/parameters[1]/temperature[@type='maximum'][@units='Fahrenheit'][1]/value/text()}).map do |node|
-        node
-      end
-    end
-    
+    # TODO remove
     def maxima
       @maxima ||= @doc.find(%q{/dwml/data/parameters[1]/temperature[@type='maximum'][@units='Fahrenheit'][1]/value/text()}).map do |node|
         node.to_s.to_i
       end
     end
 
+    # TODO remove
     def minima
       @minima ||= @doc.find(%q{/dwml/data/parameters[1]/temperature[@type='minimum'][@units='Fahrenheit'][1]/value/text()}).map do |node|
         node.to_s.to_i
       end
     end
 
-    def weather_summaries
-      @weather_summaries ||= @doc.find(%q{/dwml/data/parameters[1]/weather[1]/weather-conditions}).map do |node|
-        node['weather-summary'].to_s
-      end
-    end
-
-    def image_urls
-      @image_urls ||= @doc.find(%q{/dwml/data/parameters[1]/conditions-icon/icon-link/text()}).map do |node|
-        node.to_s
-      end
-    end
-
-    def weather_type_codes
-      @weather_type_codes ||= image_urls.map do |url|
-        url.match(/n?([a-z_]+)\d*\.jpg$/)[1].to_sym
-      end
-    end
-
-    def precipitation_probabilities
-      @precipitation_probabilities ||= @doc.find(%q{/dwml/data/parameters[1]/probability-of-precipitation[1]/value/text()}).map do |node|
+    def probability_of_precipitation
+      pops = @doc.find(%q{/dwml/data/parameters[1]/probability-of-precipitation[1]/value/text()}).map do |node|
+        #puts "node: #{node}"
         node.to_s.to_i
       end
+      #puts pops
+
+      layout_key = @doc.find(%q{/dwml/data/parameters[1]/probability-of-precipitation[1]}).first[:'time-layout']
+      #puts "needle: #{layout_key}"
+
+      layout = nil
+      @doc.find(%q{/dwml/data/time-layout}).each do |node|
+        node.each_element do |el|
+          if el.name == 'layout-key' && el.first.to_s == layout_key
+            #puts "#{el.name}: #{el.first}"
+            layout = node
+            break
+          end
+        end
+      end
+
+      metrics = []
+      layout.each do |el|
+        if el.name == 'start-valid-time'
+          metrics.push({:time => Time.parse(el.first.to_s),
+                         :value => pops[metrics.length]})
+        end
+      end
+
+      #metrics.each { |metric| puts "time: #{metric[:time]} -- value: #{metric[:value]}" }
+
+      metrics
     end
   end
 end
