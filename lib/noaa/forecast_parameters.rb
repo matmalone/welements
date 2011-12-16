@@ -107,16 +107,12 @@ module NOAA
       layout_key = @doc.find("/dwml/data/parameters[1]/#{parameter}[1]").first[:'time-layout']
 
       layout = nil
-      #count = 0
       @doc.find("/dwml/data/time-layout").each do |node|
         node.each_element do |el|
-          #count += 1
-          #puts el.name
-          #exit if count > 1
-          if el.name == 'layout-key' && el.first.to_s == layout_key
-            layout = node
-            break
-          end
+          # the layout key will always be the first element, check it
+          # then go on to the next layout node
+          layout = node if el.first.to_s == layout_key
+          break
         end
       end
 
@@ -127,7 +123,6 @@ module NOAA
                       :value => values[data.length]})
         end
       end
-
       data
     end
   end
