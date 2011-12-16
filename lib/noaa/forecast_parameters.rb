@@ -95,6 +95,10 @@ module NOAA
       build 'probability-of-precipitation'
     end
 
+    def humidity
+      build 'humidity'
+    end
+
     def build(product)
       values = @doc.find("/dwml/data/parameters[1]/#{product}[1]/value/text()").map do |node|
         #puts "node: #{node}"
