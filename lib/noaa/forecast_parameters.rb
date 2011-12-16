@@ -99,36 +99,36 @@ module NOAA
       build 'humidity'
     end
 
-    def build(product)
-      values = @doc.find("/dwml/data/parameters[1]/#{product}[1]/value/text()").map do |node|
-        #puts "node: #{node}"
+    def build(parameter)
+      values = @doc.find("/dwml/data/parameters[1]/#{parameter}[1]/value/text()").map do |node|
         node.to_s.to_i
       end
-      #puts values
 
-      layout_key = @doc.find("/dwml/data/parameters[1]/#{product}[1]").first[:'time-layout']
-      #puts "needle: #{layout_key}"
+      layout_key = @doc.find("/dwml/data/parameters[1]/#{parameter}[1]").first[:'time-layout']
 
       layout = nil
+      #count = 0
       @doc.find("/dwml/data/time-layout").each do |node|
         node.each_element do |el|
+          #count += 1
+          #puts el.name
+          #exit if count > 1
           if el.name == 'layout-key' && el.first.to_s == layout_key
-            #puts "#{el.name}: #{el.first}"
             layout = node
             break
           end
         end
       end
 
-      metrics = []
+      data = []
       layout.each do |el|
         if el.name == 'start-valid-time'
-          metrics.push({:time => Time.parse(el.first.to_s),
-                         :value => values[metrics.length]})
+          data.push({:time => Time.parse(el.first.to_s),
+                      :value => values[data.length]})
         end
       end
 
-      metrics
+      data
     end
   end
 end
