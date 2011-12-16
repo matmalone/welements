@@ -24,7 +24,7 @@ module NOAA
     # The number of days provided by the forecast
     #
     def length
-      @length ||= @doc.find(%q{/dwml/data/time-layout[@summarization='24hourly'][1]/start-valid-time}).length
+      @length ||= @doc.find("/dwml/data/time-layout[@summarization='24hourly'][1]/start-valid-time").length
     end
 
     # 
@@ -60,7 +60,7 @@ module NOAA
     # datetime of the first reading in the forecast
     def starts
       starts = nil
-      @doc.find(%q{/dwml/data/time-layout/start-valid-time/text()}).map do |node|
+      @doc.find("/dwml/data/time-layout/start-valid-time/text()").map do |node|
         t = Time.parse(node.to_s)
         starts = t if !starts || t < starts
       end
@@ -70,7 +70,7 @@ module NOAA
     # datetime of the last reading in the forecast
     def ends
       ends = nil
-      @doc.find(%q{/dwml/data/time-layout/end-valid-time/text()}).map do |node|
+      @doc.find("/dwml/data/time-layout/end-valid-time/text()").map do |node|
         t = Time.parse(node.to_s)
         ends = t if !ends || t > ends
       end
@@ -79,24 +79,24 @@ module NOAA
 
     # TODO remove
     def maxima
-      @maxima ||= @doc.find(%q{/dwml/data/parameters[1]/temperature[@type='maximum'][@units='Fahrenheit'][1]/value/text()}).map do |node|
+      @maxima ||= @doc.find("/dwml/data/parameters[1]/temperature[@type='maximum'][@units='Fahrenheit'][1]/value/text()").map do |node|
         node.to_s.to_i
       end
     end
 
     # TODO remove
     def minima
-      @minima ||= @doc.find(%q{/dwml/data/parameters[1]/temperature[@type='minimum'][@units='Fahrenheit'][1]/value/text()}).map do |node|
+      @minima ||= @doc.find("/dwml/data/parameters[1]/temperature[@type='minimum'][@units='Fahrenheit'][1]/value/text()").map do |node|
         node.to_s.to_i
       end
     end
 
     def probability_of_precipitation
-      build 'probability-of-precipitation'
+      build('probability-of-precipitation')
     end
 
     def humidity
-      build 'humidity'
+      build('humidity')
     end
 
     def build(parameter)
