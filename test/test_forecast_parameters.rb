@@ -19,13 +19,13 @@ class TestForecastParameters < NOAA::TestCase
     assert_equal 14, pops.length, "14 pop metrics"
   end
 
-  def test_humidity
-    rh = forecast.humidity
+  def test_relative_humidity
+    rh = forecast.relative_humidity
     assert_equal({:value => 64, :time => Time.parse('2011-12-17T01:00:00-08:00')}, rh[0])
     assert_equal({:value => 64, :time => Time.parse('2011-12-17T04:00:00-08:00')}, rh[1])
     assert_equal({:value => 53, :time => Time.parse('2011-12-17T07:00:00-08:00')}, rh[2])
     assert_equal({:value => 65, :time => Time.parse('2011-12-23T16:00:00-08:00')}, rh[37])
-    assert_equal 38, rh.length, "38 humidity metrics"
+    assert_equal 38, rh.length, "38 RH values"
   end
 
   def xml

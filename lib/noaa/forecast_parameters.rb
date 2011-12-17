@@ -95,7 +95,7 @@ module NOAA
       build('probability-of-precipitation')
     end
 
-    def humidity
+    def relative_humidity
       build('humidity')
     end
 
