@@ -99,6 +99,14 @@ module NOAA
       build('humidity')
     end
 
+    def maximum_temperature
+      build('temperature', {'type' => 'maximum', 'units' => 'Celsius'})
+    end
+
+    def minimum_temperature
+      build('temperature')
+    end
+
     def build(parameter)
       values = @doc.find("/dwml/data/parameters[1]/#{parameter}[1]/value/text()").map do |node|
         node.to_s.to_i
