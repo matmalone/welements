@@ -1,19 +1,12 @@
 module NOAA
   # 
-  # A Forecast object represents a multi-day forecast for a particular place. The forecast for a given day can
-  # be accessed using the [] method; e.g. (assuming +forecast+ is a forecast for 12/20/2008 - 12/24/2008):
-  #
-  #   forecast[1]     #=> ForecastDay for 12/21/2008
-  #   forecast.length #=> 4
   #   
   class ForecastParameters
 
-    class << self
-      private :new
-
-      def from_xml(doc) #:nodoc:
-        new(doc)
-      end
+    private_class_method :new
+    
+    def self.from_xml(doc) #:nodoc:
+      new(doc)
     end
 
     def initialize(doc) #:noinit:
@@ -25,36 +18,6 @@ module NOAA
     #
     def length
       @length ||= @doc.find("/dwml/data/time-layout[@summarization='24hourly'][1]/start-valid-time").length
-    end
-
-    # 
-    # Get the ForecastDay for day i
-    #
-    #   forecast[1] #=> returns the ForecastDay for the second day
-    # 
-    def [](i)
-      forecast_days[i]
-    end
-
-    #private
-
-    def forecast_days
-      @forecast_days ||= begin
-        days = []
-        length.times do |i|
-          days << day = NOAA::ForecastDay.new
-          day.starts_at = starts[i]
-          day.ends_at = ends[i]
-          day.high = maxima[i]
-          day.low = minima[i]
-          day.weather_summary = weather_summaries[i]
-          day.weather_type_code = weather_type_codes[i]
-          day.image_url = image_urls[i]
-          day.daytime_precipitation_probability = precipitation_probabilities[i*2]
-          day.evening_precipitation_probability = precipitation_probabilities[i*2+1]
-        end
-        days
-      end
     end
 
     # datetime of the first reading in the forecast
@@ -147,6 +110,8 @@ module NOAA
       build('fire-weather', {'type' => 'risk from dry thunderstorms'},
       :string)
     end
+
+    #private
 
     def build(parameter, attributes={}, value_type=:integer)
       attributes_filter = ''
