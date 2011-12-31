@@ -99,20 +99,61 @@ module NOAA
       build('humidity')
     end
 
-    def maximum_temperature
+    def temperature_maximum
       build('temperature', {'type' => 'maximum', 'units' => 'Celsius'})
     end
 
-    def minimum_temperature
+    def temperature_minimum
       build('temperature', {'type' => 'minimum', 'units' => 'Celsius'})
     end
 
-    def build(parameter, attributes={})
+    def temperature_hourly
+      build('temperature', {'type' => 'hourly', 'units' => 'Celsius'})
+    end
+
+    def temperature_dew_point
+      build('temperature', {'type' => 'dew point', 'units' => 'Celsius'})
+    end
+
+    def temperature_apparent
+      build('temperature', {'type' => 'apparent', 'units' => 'Celsius'})
+    end
+
+    def precipitation_liquid
+      build('precipitation', {'type' => 'liquid', 'units' => 'centimeters'})
+    end
+
+    def precipitation_snow
+      build('precipitation', {'type' => 'snow', 'units' => 'centimeters'})
+    end
+
+    def wind_speed_sustained
+      build('wind-speed', {'type' => 'sustained', 'units' => 'meters/second'})
+    end
+
+    def wind_speed_gust
+      build('wind-speed', {'type' => 'gust', 'units' => 'meters/second'})
+    end
+
+    def wind_direction
+      build('direction', {'type' => 'wind', 'units' => 'degrees true'})
+    end
+
+    def cloud_cover
+      build('cloud-amount')
+    end
+
+    def fire_outlook_from_dry_thunderstorms
+      build('fire-weather', {'type' => 'risk from dry thunderstorms'},
+      :string)
+    end
+
+    def build(parameter, attributes={}, value_type=:integer)
       attributes_filter = ''
       attributes.each {|k, v| attributes_filter += "[@#{k}='#{v}']" }
       
       values = @doc.find("/dwml/data/parameters[1]/#{parameter}#{attributes_filter}[1]/value/text()").map do |node|
-        node.to_s.to_i
+        value_type == :integer ? node.to_s.to_i : node.to_s
       end
 
       layout_key = @doc.find("/dwml/data/parameters[1]/#{parameter}#{attributes_filter}[1]").first[:'time-layout']
