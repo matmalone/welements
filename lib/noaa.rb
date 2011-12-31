@@ -62,8 +62,8 @@ module NOAA
     end
 
     # Retrieve complex forecast parameters result
-    def forecast_parameters(num_days, lat, lng)
-      ForecastParameters.from_xml(HttpService.new.get_forecast_parameters(num_days, lat, lng))
+    def forecast_parameters(lat, lng)
+      ForecastParameters.from_xml(HttpService.new.get_forecast_parameters(lat, lng))
     end
   end
 end
