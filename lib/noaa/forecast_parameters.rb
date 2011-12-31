@@ -63,43 +63,43 @@ module NOAA
     end
 
     def temperature_maximum
-      build('temperature', {'type' => 'maximum', 'units' => 'Celsius'})
+      build('temperature', {'type' => 'maximum'})
     end
 
     def temperature_minimum
-      build('temperature', {'type' => 'minimum', 'units' => 'Celsius'})
+      build('temperature', {'type' => 'minimum'})
     end
 
     def temperature_hourly
-      build('temperature', {'type' => 'hourly', 'units' => 'Celsius'})
+      build('temperature', {'type' => 'hourly'})
     end
 
     def temperature_dew_point
-      build('temperature', {'type' => 'dew point', 'units' => 'Celsius'})
+      build('temperature', {'type' => 'dew point'})
     end
 
     def temperature_apparent
-      build('temperature', {'type' => 'apparent', 'units' => 'Celsius'})
+      build('temperature', {'type' => 'apparent'})
     end
 
     def precipitation_liquid
-      build('precipitation', {'type' => 'liquid', 'units' => 'centimeters'})
+      build('precipitation', {'type' => 'liquid'})
     end
 
     def precipitation_snow
-      build('precipitation', {'type' => 'snow', 'units' => 'centimeters'})
+      build('precipitation', {'type' => 'snow'})
     end
 
     def wind_speed_sustained
-      build('wind-speed', {'type' => 'sustained', 'units' => 'meters/second'})
+      build('wind-speed', {'type' => 'sustained'})
     end
 
     def wind_speed_gust
-      build('wind-speed', {'type' => 'gust', 'units' => 'meters/second'})
+      build('wind-speed', {'type' => 'gust'})
     end
 
     def wind_direction
-      build('direction', {'type' => 'wind', 'units' => 'degrees true'})
+      build('direction', {'type' => 'wind'})
     end
 
     def cloud_cover
