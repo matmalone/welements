@@ -28,19 +28,19 @@ class TestForecastParameters < NOAA::TestCase
     assert_equal 38, rh.length, "38 RH values"
   end
 
-  # def test_maximum_temperature
-  #   vals = forecast.maximum_temperature
-  #   assert_equal({:value => 6, :time => Time.parse('2011-12-17T07:00:00-05:00')}, vals[0])
-  #   assert_equal({:value => 8, :time => Time.parse('2011-12-23T07:00:00-05:00')}, vals[6])
-  #   assert_equal 7, vals.length, "7 vals values"
-  # end
+  def test_maximum_temperature
+    vals = forecast.maximum_temperature
+    assert_equal({:value => 6, :time => Time.parse('2011-12-17T07:00:00-05:00')}, vals[0])
+    assert_equal({:value => 8, :time => Time.parse('2011-12-23T07:00:00-05:00')}, vals[6])
+    assert_equal 7, vals.length, "7 vals values"
+  end
   
-  # def test_minimum_temperature
-  #   vals = forecast.minimum_temperature
-  #   assert_equal({:value => 2, :time => Time.parse('2011-12-16T19:00:00-05:00')}, vals[0])
-  #   assert_equal({:value => 3, :time => Time.parse('2011-12-22T19:00:00-05:00')}, vals[6])
-  #   assert_equal 7, vals.length, "7 min values"
-  # end
+  def test_minimum_temperature
+    vals = forecast.minimum_temperature
+    assert_equal({:value => 2, :time => Time.parse('2011-12-16T19:00:00-05:00')}, vals[0])
+    assert_equal({:value => 3, :time => Time.parse('2011-12-22T19:00:00-05:00')}, vals[6])
+    assert_equal 7, vals.length, "7 min values"
+  end
   
   def xml
     @xml ||= NOAA::HttpService.new.get_forecast_parameters(2, 40, -120)

@@ -104,15 +104,18 @@ module NOAA
     end
 
     def minimum_temperature
-      build('temperature')
+      build('temperature', {'type' => 'minimum', 'units' => 'Celsius'})
     end
 
-    def build(parameter)
-      values = @doc.find("/dwml/data/parameters[1]/#{parameter}[1]/value/text()").map do |node|
+    def build(parameter, attributes={})
+      attributes_filter = ''
+      attributes.each {|k, v| attributes_filter += "[@#{k}='#{v}']" }
+      
+      values = @doc.find("/dwml/data/parameters[1]/#{parameter}#{attributes_filter}[1]/value/text()").map do |node|
         node.to_s.to_i
       end
 
-      layout_key = @doc.find("/dwml/data/parameters[1]/#{parameter}[1]").first[:'time-layout']
+      layout_key = @doc.find("/dwml/data/parameters[1]/#{parameter}#{attributes_filter}[1]").first[:'time-layout']
 
       layout = nil
       @doc.find("/dwml/data/time-layout").each do |node|
