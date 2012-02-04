@@ -11,7 +11,8 @@ require './lib/welements.rb'
 Echoe.new('welements', Welements::VERSION) do |p|
   p.name = 'welements'
   p.author = 'Mat Malone'
-  p.description = 'Ruby API for National Oceanic and Atmospheric Administration weather data'
+  p.description = 'Ruby API for National Weather Service National
+  Digital Forecast Database'
   p.email = 'm2@innerlogic.org'
   p.url = 'http://github.com/matmalone/welements'
   p.install_message = ""
