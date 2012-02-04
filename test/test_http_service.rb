@@ -20,8 +20,8 @@ class TestHttpService < NOAA::TestCase
     assert doc.find(%q{/dwml/data/parameters[1]/temperature[1]/value}).map.count == 4
   end
 
-  def test_should_get_parseable_results_for_forecast_parameters
-    doc = NOAA::HttpService.new.get_forecast_parameters(40.72, -73.99)
+  def test_should_get_parseable_results_for_elements
+    doc = NOAA::HttpService.new.get_elements(40.72, -73.99)
     assert doc.find("/dwml/data/parameters[1]/humidity[1]/value").map.count > 1
   end
 
