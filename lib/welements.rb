@@ -9,7 +9,7 @@ rescue LoadError => e
   end
 end
 
-%w(current_conditions forecast forecast_day welements http_service station station_writer).each { |file| require File.join(File.dirname(__FILE__), 'noaa', file) }
+%w(current_conditions forecast forecast_day welements http_service station station_writer).each { |file| require File.join(File.dirname(__FILE__), 'welements', file) }
 
 # 
 # The NOAA singleton provides methods to conveniently access information from the NOAA weather feed.
@@ -17,7 +17,7 @@ end
 # NOAA API you will need; one exception is discussed below.
 #
 module Welements
-  autoload :VERSION, File.join(File.dirname(__FILE__), 'noaa', 'version')
+  autoload :VERSION, File.join(File.dirname(__FILE__), 'welements', 'version')
 
   class << self
     # 
