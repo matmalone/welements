@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 class TestForecastParameters < Welements::TestCase
-  XML_DOC = LibXML::XML::Document.file(File.join(File.dirname(__FILE__), 'data', 'elements.xml'))
+  XML_DOC = LibXML::XML::Document.file(File.join(File.dirname(__FILE__), 'data', 'welements.xml'))
 
   def test_starts
     assert_equal Time.parse('2011-12-16T13:00:00-08:00'), forecast.starts, 'forecast starts at 2011-12-16 1pm'
@@ -103,7 +103,7 @@ class TestForecastParameters < Welements::TestCase
   end
   
   def xml
-    @xml ||= Welements::HttpService.new.get_elements(2, 40, -120)
+    @xml ||= Welements::HttpService.new.get_welements(2, 40, -120)
   end
 
   def forecast
