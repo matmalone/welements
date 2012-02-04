@@ -1,3 +1,3 @@
-module NOAA
-  VERSION = '0.2.3'
+module Welements
+  VERSION = '0.0.1'
 end

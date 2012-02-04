@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class TestHttpService < NOAA::TestCase
+class TestHttpService < Welements::TestCase
   def setup
     HTTP.reset
   end
@@ -16,12 +16,12 @@ class TestHttpService < NOAA::TestCase
   end
 
   def test_should_get_parseable_results_for_forecast
-    doc = NOAA::HttpService.new.get_forecast(4, 40.72, -73.99)
+    doc = Welements::HttpService.new.get_forecast(4, 40.72, -73.99)
     assert doc.find(%q{/dwml/data/parameters[1]/temperature[1]/value}).map.count == 4
   end
 
   def test_should_get_parseable_results_for_elements
-    doc = NOAA::HttpService.new.get_elements(40.72, -73.99)
+    doc = Welements::HttpService.new.get_elements(40.72, -73.99)
     assert doc.find("/dwml/data/parameters[1]/humidity[1]/value").map.count > 1
   end
 
@@ -41,7 +41,7 @@ class TestHttpService < NOAA::TestCase
   private
 
   def http_service
-    NOAA::HttpService.new(HTTP)
+    Welements::HttpService.new(HTTP)
   end
 
   module HTTP

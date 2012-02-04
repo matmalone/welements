@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class TestForecast < NOAA::TestCase
+class TestForecast < Welements::TestCase
   XML_DOC = LibXML::XML::Document.file(File.join(File.dirname(__FILE__), 'data', '4-day.xml'))
   
   def test_should_return_number_of_days
@@ -64,6 +64,6 @@ class TestForecast < NOAA::TestCase
   private
 
   def forecast
-    @forecast ||= NOAA::Forecast.from_xml(XML_DOC)
+    @forecast ||= Welements::Forecast.from_xml(XML_DOC)
   end
 end

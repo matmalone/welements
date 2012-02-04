@@ -1,4 +1,4 @@
-module NOAA
+module Welements
   class HttpService #:nodoc:
     def initialize(http = Net::HTTP)
       @HTTP = http

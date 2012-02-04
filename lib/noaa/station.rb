@@ -1,4 +1,4 @@
-module NOAA
+module Welements
   # 
   # Data about an NOAA observation station. When accessing current conditions, the NOAA XML API
   # takes a station ID as input; thus, to find the current conditions for an arbitrary location, one

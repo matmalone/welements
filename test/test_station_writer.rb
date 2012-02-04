@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class TestStationWriter < NOAA::TestCase
+class TestStationWriter < Welements::TestCase
   XML_DOC = LibXML::XML::Document.file(File.join(File.dirname(__FILE__), 'data', 'stations-abridged.xml'))
 
   def test_should_write_latitude_for_station
@@ -42,7 +42,7 @@ class TestStationWriter < NOAA::TestCase
   def yaml
     @yaml ||= begin
       io = StringIO.new
-      NOAA::StationWriter.new(XML_DOC).write(io)
+      Welements::StationWriter.new(XML_DOC).write(io)
       YAML.load(io.string)
     end
   end

@@ -1,4 +1,4 @@
-module NOAA
+module Welements
   class StationWriter
     def initialize(doc)
       @doc = doc

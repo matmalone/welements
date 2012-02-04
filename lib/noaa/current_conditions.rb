@@ -1,4 +1,4 @@
-module NOAA
+module Welements
   # 
   # Representation of the current conditions for a given observation point.
   #
@@ -17,7 +17,7 @@ module NOAA
     end
 
     #
-    # Time object containing the time at which these conditions were observed at the NOAA station
+    # Time object containing the time at which these conditions were observed at the Welements station
     #
     def observed_at
       @observed_at ||= Time.parse(text_from_node('observation_time_rfc822'))

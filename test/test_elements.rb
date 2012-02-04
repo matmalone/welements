@@ -1,5 +1,5 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
-class TestForecastParameters < NOAA::TestCase
+class TestForecastParameters < Welements::TestCase
   XML_DOC = LibXML::XML::Document.file(File.join(File.dirname(__FILE__), 'data', 'elements.xml'))
 
   def test_starts
@@ -103,10 +103,10 @@ class TestForecastParameters < NOAA::TestCase
   end
   
   def xml
-    @xml ||= NOAA::HttpService.new.get_elements(2, 40, -120)
+    @xml ||= Welements::HttpService.new.get_elements(2, 40, -120)
   end
 
   def forecast
-    @forecast ||= NOAA::ForecastParameters.from_xml(XML_DOC)
+    @forecast ||= Welements::ForecastParameters.from_xml(XML_DOC)
   end
 end

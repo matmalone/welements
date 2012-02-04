@@ -1,4 +1,4 @@
-module NOAA
+module Welements
   # 
   # A Forecast object represents a multi-day forecast for a particular place. The forecast for a given day can
   # be accessed using the [] method; e.g. (assuming +forecast+ is a forecast for 12/20/2008 - 12/24/2008):
@@ -42,7 +42,7 @@ module NOAA
       @forecast_days ||= begin
         days = []
         length.times do |i|
-          days << day = NOAA::ForecastDay.new
+          days << day = Welements::ForecastDay.new
           day.starts_at = starts[i]
           day.ends_at = ends[i]
           day.high = maxima[i]

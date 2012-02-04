@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class TestCurrentConditions < NOAA::TestCase
+class TestCurrentConditions < Welements::TestCase
   XML_DOC = LibXML::XML::Document.file(File.join(File.dirname(__FILE__), 'data', 'KVAY.xml'))
 
   def test_should_return_observation_time
@@ -136,6 +136,6 @@ class TestCurrentConditions < NOAA::TestCase
   private
 
   def conditions
-    @conditions ||= NOAA::CurrentConditions.from_xml(XML_DOC)
+    @conditions ||= Welements::CurrentConditions.from_xml(XML_DOC)
   end
 end

@@ -16,7 +16,7 @@ end
 # For the most part, NOAA.current_conditions and NOAA.forecast will be the only entry point into the
 # NOAA API you will need; one exception is discussed below.
 #
-module NOAA
+module Welements
   autoload :VERSION, File.join(File.dirname(__FILE__), 'noaa', 'version')
 
   class << self
