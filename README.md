@@ -1,42 +1,42 @@
-= welements
+# welements
 
 * http://github.com/matmmalone/welements
 
-== Description:
+## Description:
 
 welements is a library that provides an API for the National Weather
 Service's National Digital Forecast Database (NDFD). This provides a
 broad array of different forecast elements that can be queried.
 
-== Features:
+## Features:
 
 - Find detailed forecasts using lat/lng.
 - Access all relevant data the NDFD feed.
 
-== Requirements:
+## Requirements:
 
 - libxml-ruby >= 0.9.7
 - geokit >= 1.5.0
 
-== Installation:
+## Installation:
 
   sudo gem install welements
 
-== Usage:
+## Usage:
 
-  # Get current conditions
-  forecast = Welements.welements(lat, lng)
-  puts "The next hourly forecast temperature is #{forecast.temperature_hourly[0][:value]} Celcius at #{forecast.temperature_hourly[0][:time]}."
+### Get current conditions
+    forecast = Welements.welements(lat, lng)
+    puts "The next hourly forecast temperature is #{forecast.temperature_hourly[0][:value]} Celcius at #{forecast.temperature_hourly[0][:time]}."
   
-== Contact:
+## Contact:
 
 Mat Malone (m2@innerlogic.org)
 
-== Fork:
+## Fork:
 welements is originally based on Mat Brown's outoftime-noaa project:
 http://github.com/outoftime/noaa. outoftime-noaa Copyright 2008 Mat Brown.
 
-== License:
+## License:
 
 (The MIT License)
 
