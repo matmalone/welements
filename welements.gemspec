@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.8.15}
   s.summary = %q{Ruby API for the National Weather Service's National Digital Forecast Database (NDFD)}
   s.test_files = ["test/test_helper.rb", "test/test_http_service.rb", "test/test_welements.rb", "test/test_integration.rb"]
-  s.add_runtime_dependency('nokogiri', '>= 0.9.7')
-  s.add_runtime_dependency('geokit', '>= 1.5.0')
+  s.add_runtime_dependency('nokogiri', '>= 1.5.0')
+  s.add_runtime_dependency('geokit', '>= 1.6.5')
+  s.add_runtime_dependency('libxml-ruby', '>= 2.2.2')
 end

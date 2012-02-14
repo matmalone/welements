@@ -15,8 +15,9 @@ Echoe.new('welements', Welements::VERSION) do |p|
   p.email = 'm2@innerlogic.org'
   p.url = 'http://github.com/matmalone/welements'
   p.install_message = ""
-  p.runtime_dependencies = [Gem::Dependency.new('libxml-ruby', '>= 0.9.7'),
-                            Gem::Dependency.new('geokit', '>= 1.5.0')]
+  p.runtime_dependencies = [Gem::Dependency.new('libxml-ruby', '>= 2.2.2'),
+                            Gem::Dependency.new('geokit', '>= 1.6.5'),
+                            Gem::Dependency.new('nokogiri', '>= 1.5.0')]
   p.development_dependencies = [Gem::Dependency.new('ruby-debug', '~> 0.10')]
 end
 
