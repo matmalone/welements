@@ -20,7 +20,7 @@ broad array of different forecast elements that can be queried.
 
 ## Installation
 
-  sudo gem install welements
+  gem install welements
 
 ## Usage
 
