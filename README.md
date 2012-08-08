@@ -1,6 +1,6 @@
 # welements
 
-http://github.com/matmmalone/welements
+http://github.com/matmalone/welements
 
 ## Description
 
