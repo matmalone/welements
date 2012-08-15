@@ -17,6 +17,7 @@ broad array of different forecast elements that can be queried.
 
 - libxml-ruby >= 0.9.7
 - geokit >= 1.5.0
+- echoe ~> 4.6
 
 ## Installation
 
