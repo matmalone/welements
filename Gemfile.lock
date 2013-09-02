@@ -1,0 +1,25 @@
+PATH
+  remote: .
+  specs:
+    welements (0.1.3)
+      geokit (>= 1.6.5)
+      libxml-ruby (>= 2.2.2)
+      nokogiri (~> 1.5.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    geokit (1.6.5)
+      multi_json
+    libxml-ruby (2.7.0)
+    multi_json (1.7.9)
+    nokogiri (1.5.10)
+    rake (10.0.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.3)
+  rake
+  welements!
